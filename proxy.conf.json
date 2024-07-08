@@ -1,0 +1,8 @@
+{
+  "/connect/token": {
+    "target": "https://login.allhours.com",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
