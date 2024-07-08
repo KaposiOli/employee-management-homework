@@ -1,8 +1,8 @@
-<h2>Settings</h2>
+<h2>Settings Page</h2>
 <form (ngSubmit)="saveAuthData()">
-  <div>
-    <label for="authToken">Auth Token:</label>
-    <input type="text" id="authToken" [(ngModel)]="authToken" name="authToken">
+  <div class="settingsForm">
+    <p>Auth token from login endpoint: </p>
+    <div class="tokenDiv">{{tokenFromApi}}</div>
   </div>
-  <button type="submit">Save</button>
+  <button class="saveButton" type="submit">Save</button>
 </form>

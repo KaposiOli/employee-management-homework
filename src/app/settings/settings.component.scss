@@ -1,0 +1,26 @@
+.tokenDiv {
+  width: 50%;
+  margin: 10px;
+  word-wrap: break-word;
+  border: 1px solid #ccc;
+}
+
+.saveButton {
+  margin: 10px;
+}
+
+.settingsForm {
+  display: flex;
+  flex-direction: column;
+  padding-left: 15px;
+}
+
+.tokenInput {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.token-form-field {
+  width: 400px;
+}
