@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>Select Date Range</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+      <input readonly matStartDate formControlName="start" placeholder="Start date">
+      <input readonly matEndDate formControlName="end" placeholder="End date">
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  
+    @if (range.controls.start.hasError('matStartDateInvalid')) {
+      <mat-error>Invalid start date</mat-error>
+    }
+    @if (range.controls.end.hasError('matEndDateInvalid')) {
+      <mat-error>Invalid end date</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Absence Definiton</mat-label>
+    <mat-select [(ngModel)]="selectedAbsenceDefinitionId" name="absenceDefinition">
+      @for (absenceDefinitionOption of absenceDefinitions; track absenceDefinitions) {
+        <mat-option [value]="absenceDefinitionOption.Id">{{absenceDefinitionOption.Name}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" (click)="onSave()">Save</button>
+</div>
