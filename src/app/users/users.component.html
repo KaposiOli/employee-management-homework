@@ -1,0 +1,54 @@
+<h2>Users</h2>
+<div>
+  <input type="text" placeholder="Search by first or last name" [(ngModel)]="searchTerm" (input)="searchUsers()">
+</div>
+<div>
+  <h3>Add New Employee</h3>
+  <form (ngSubmit)="addUser()">
+    <input type="text" placeholder="First Name" [(ngModel)]="newUser.FirstName" name="FirstName" required>
+    <input type="text" placeholder="Last Name" [(ngModel)]="newUser.LastName" name="LastName" required>
+    <input type="email" placeholder="Email" [(ngModel)]="newUser.Email" name="Email" required>
+    <button type="submit">Add</button>
+  </form>
+</div>
+<h3>All Users</h3>
+<div class="table-wrapper">
+  <table mat-table [dataSource]="filteredUsers" class="mat-elevation-z8" *ngIf="!showSpinner">
+  
+    <ng-container matColumnDef="Id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="Email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="FirstName">
+      <th mat-header-cell *matHeaderCellDef> First Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.FirstName}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="LastName">
+      <th mat-header-cell *matHeaderCellDef> Last Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.LastName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Actions">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let element">
+        <a mat-icon-button (click)="openDialog(element)">
+        <mat-icon>edit</mat-icon>        
+      </a> </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <div class="spinner-wrapper" *ngIf="showSpinner">
+    <mat-spinner></mat-spinner>
+  </div>
+
+</div>
