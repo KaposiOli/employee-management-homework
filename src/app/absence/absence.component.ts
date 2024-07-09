@@ -33,6 +33,9 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class AbsenceComponent {
   constructor(private absenceService: AbsenceService) {}
+  // fully aware that this is magic numbery, pulling in a lib(momentjs) to handle dates felt like overkill,
+  // but would be the better practice in an actual project environment
+  // this introduces a bug that the date is not correctly displayed in the datepicker, but the date is correct in the console
   START_OFFSET = 2;
   END_OFFSET = 26;
   absences: Absence[] = [];
@@ -43,7 +46,7 @@ export class AbsenceComponent {
     this.getAbsencesForDate(event.value);
   }
 
-  calculateDate(date: Date, startOrEnd: 'start' | 'end'): string {
+  private calculateDate(date: Date, startOrEnd: 'start' | 'end'): string {
     return new Date(
       date.setHours(
         startOrEnd === 'start' ? +this.START_OFFSET : +this.END_OFFSET
@@ -51,7 +54,12 @@ export class AbsenceComponent {
     ).toISOString();
   }
 
-  // absences/GET returns Absence[] for a given date, date being the timestamp of the absence rather than the PartialTimeFrom or PartialTimeTo parameter, is this intended?
+  // absences/GET returns Absence[] for a given date, date being the timestamp (or the time of insertion) of the absence rather than the PartialTimeFrom or PartialTimeTo parameter,
+  // not sure if this is intended? as per the task description we need the absences for a selected day, and if the absences' duration is between PartialTimeFrom and PartialTimeTo,
+  // then filtering it on the frontend seemed the most viable option, but I doubt the task's aim was to filter a huge amount of absences on the frontend
+  // so the current solution takes the selected date and looks for timestamps between the start and end of the day as that is what the endpoint returns
+
+  //good example date for testing: 2024.07.04
 
   getAbsencesForDate(date: Date): void {
     this.showSpinner = true;
