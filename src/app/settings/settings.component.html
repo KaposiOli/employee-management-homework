@@ -1,8 +1,11 @@
 <h2>Settings Page</h2>
 <form (ngSubmit)="saveAuthData()">
-  <div class="settingsForm">
+  <div class="settingsForm" *ngIf="!showSpinner">
     <p>Auth token from login endpoint: </p>
     <div class="tokenDiv">{{tokenFromApi}}</div>
+  </div>
+  <div class="spinner-wrapper" *ngIf="showSpinner">
+    <mat-spinner></mat-spinner>
   </div>
   <button class="saveButton" type="submit">Save</button>
 </form>
